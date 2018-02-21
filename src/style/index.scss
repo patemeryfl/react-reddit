@@ -1,0 +1,28 @@
+@import './colors';
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+html, body {
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	background: $darker;
+	font-family: 'Lato', 'Helvetica', arial, sans-serif;
+	font-weight: 400;
+	color: $subtleOnDark;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+	width: 0px;
+	background: transparent;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+#app {
+	height: 100%;
+}

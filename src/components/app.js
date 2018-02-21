@@ -1,13 +1,13 @@
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
-import Header from './header';
 import Footer from './footer';
 
 import PostsContainer from '../routes/posts';
+import Inbox from '../routes/inbox';
 import Profile from '../routes/profile';
-// import Home from 'async!../routes/home';
-// import Profile from 'async!../routes/profile';
+import Search from '../routes/search';
+import Settings from '../routes/settings';
 
 if (module.hot) {
 	require('preact/debug');
@@ -26,11 +26,13 @@ export default class App extends Component {
 	render() {
 		return (
 			<div id="app">
-				<Header />
 				<Router onChange={this.handleRoute}>
 					<PostsContainer path="/" />
+					<Inbox path="/inbox" />
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
+					<Search path="/search" />
+					<Settings path="/settings" />
 				</Router>
 				<Footer />
 			</div>
