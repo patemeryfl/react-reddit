@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
 import style from './style';
 import Header from '../../components/header';
 import Post from '../../components/post';
@@ -8,9 +9,10 @@ import testData from '../../z_examples/example';
 
 const { children } = testData.data;
 
-export default class PostsContainer extends Component {
+
+class PostsContainer extends Component {
 	state = {}
-	render() {
+	render(props, state) {
 		return (
 			<div>
 				<Header
@@ -25,3 +27,5 @@ export default class PostsContainer extends Component {
 		);
 	}
 }
+
+export default connect(state => state)(PostsContainer);

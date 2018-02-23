@@ -27,13 +27,17 @@
     "preact-render-spy": "^1.2.1"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "hex2rgba": "^0.0.1",
     "node-sass": "^4.7.2",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
+    "preact-redux": "^2.0.3",
     "preact-router": "^2.5.7",
     "preact-scroll-header": "^1.0.1",
-    "sass-loader": "^6.0.6"
+    "redux": "^3.7.2",
+    "sass-loader": "^6.0.6",
+    "snoowrap": "^1.15.2"
   },
   "jest": {
     "verbose": true,

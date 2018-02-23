@@ -1,8 +1,11 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
 import style from './style';
 import { icons } from '../../assets/svgs';
 
-export default class Search extends Component {
+
+class Search extends Component {
+
 	state = {
 		query: 'Search Posts, Subreddits, Users',
 		trending: ['Cozy Places', 'Oddly Satisfying', 'Vintage Menus', 'Trees', 'Meditation']
@@ -14,12 +17,17 @@ export default class Search extends Component {
 
 	handleSubmit = () => {
 		let { query } = this.state;
-		console.log(query);
+		this.props.dispatch({ type: 'SEARCH_SUBREDDITS', query });
 	}
 
 	clear = () => {this.setState({ query: '' });}
 
 	render({ }, { query, trending }) {
+		if (this.props.search instanceof Promise) {
+			this.props.search.then(res => {
+				//this.props.dispatch({ type: 'FETCHING_COMPLETED', payload: res });
+			});
+		}
 		return (
 			<div>
 				<header class={style.header}>
@@ -64,3 +72,6 @@ export default class Search extends Component {
 		);
 	}
 }
+
+
+export default connect(state => state)(Search);

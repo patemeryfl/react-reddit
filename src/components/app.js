@@ -1,8 +1,12 @@
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
+import { Provider } from 'preact-redux';
+import store from '../state/redux';
+import { auth } from '../assets/auth/oAuth';
 
+//Stateless
 import Footer from './footer';
-
+//Connected
 import PostsContainer from '../routes/posts';
 import Inbox from '../routes/inbox';
 import Profile from '../routes/profile';
@@ -15,6 +19,8 @@ if (module.hot) {
 
 export default class App extends Component {
 
+	state = { snoo: '' }
+
 	/** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
 	 *	@param {string} event.url	The newly routed URL
@@ -23,9 +29,21 @@ export default class App extends Component {
 		this.currentUrl = e.url;
 	};
 
-	render() {
-		return (
-			<div id="app">
+	componentDidMount() {
+		const script = document.createElement('script');
+		script.src = 'https://not-an-aardvark.github.io/snoowrap/snoowrap-v1.js';
+		script.async = true;
+	
+		script.onload = () => {
+			window.snoo = new window.snoowrap(auth);
+		};
+	
+		document.body.appendChild(script);
+	}
+
+	render({ state }) {
+		return (<div id="app">
+			<Provider store={store}>
 				<Router onChange={this.handleRoute}>
 					<PostsContainer path="/" />
 					<Inbox path="/inbox" />
@@ -34,8 +52,8 @@ export default class App extends Component {
 					<Search path="/search" />
 					<Settings path="/settings" />
 				</Router>
-				<Footer />
-			</div>
-		);
+			</Provider>
+			<Footer />
+		</div>);
 	}
 }
