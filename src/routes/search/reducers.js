@@ -10,7 +10,7 @@ const search = (state, action) => {
 			return new Promise((res, rej) => {
 				window.snoo.getSubreddit('programming').getNew().then(subreddit => {
 					res(subreddit);
-					rej({ error: 'An error occured fetching subs' });
+					rej([...state, { error: 'An error occured fetching subs' }]);
 				});
 			});
 		}

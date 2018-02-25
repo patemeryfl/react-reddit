@@ -9,10 +9,20 @@ import testData from '../../z_examples/example';
 
 const { children } = testData.data;
 
-
 class PostsContainer extends Component {
-	state = {}
+	state = { new: null }
+
+	componentWillMount() {
+		this.state = { new: this.props.dispatch({ type: 'GET_NEW' }) };
+	}
+
 	render(props, state) {
+		if (this.props.posts instanceof Promise) {
+			this.props.dispatch({ type: 'GET_NEW' }).then(res => {
+				this.setState({ new: res });
+				debugger;
+			});
+		}
 		return (
 			<div>
 				<Header

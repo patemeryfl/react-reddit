@@ -29,7 +29,7 @@ export default class App extends Component {
 		this.currentUrl = e.url;
 	};
 
-	componentDidMount() {
+	componentWillMount() {
 		const script = document.createElement('script');
 		script.src = 'https://not-an-aardvark.github.io/snoowrap/snoowrap-v1.js';
 		script.async = true;

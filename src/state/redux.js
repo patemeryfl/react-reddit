@@ -1,6 +1,7 @@
 import search from '../routes/search/reducers';
+import posts from '../routes/posts/reducers';
 
-const results = (state = [], action) => {
+const async = (state, action) => {
 	switch (action.type) {
 		case 'STARTED_FETCHING':
 			return [...state, { isFetching: true }];
@@ -13,15 +14,19 @@ const results = (state = [], action) => {
 	}
 };
 
-const createStore = (reducer) => {
+const initialState = {
+	posts: {},
+	inbox: {},
+	profile: {},
+	search: {},
+	settings: {},
+	isFetching: false,
+	error: ''
+};
 
-	let state = {
-		posts: {},
-		inbox: {},
-		profile: {},
-		search: {},
-		settings: {}
-	};
+
+const createStore = (reducer, initialState) => {
+	let state = initialState;
 	let listeners = [];
 		
 	const getState = () => state;
@@ -50,6 +55,6 @@ const combineReducers = (reducers) => (state = { dispatch: '' }, action) => Obje
 	}, {});
 
 
-const APP = combineReducers({ search, results });
+const APP = combineReducers({ posts, search, async });
 
-export default createStore(APP);
+export default createStore(APP, initialState);
