@@ -1,0 +1,12 @@
+@import '../../style/colors';
+
+.container {
+    height: 100%;
+    margin-bottom: 5px;
+    padding: 0 5px;
+}
+
+.author {
+    background-color: $darker;
+    color: $white;
+}

@@ -2,10 +2,10 @@ import { h } from 'preact';
 import style from './style';
 import { icons } from '../../assets/svgs';
 
-const Header = ({ left, title, right }) => (
+const Header = ({ left, onLeftClick, title, right }) => (
 	<header class={style.header}>
 		<nav>
-			<button class={style.backButton}>
+			<button class={style.backButton} onClick={onLeftClick}>
 				<span style={{ visibility: left.showIcon ? '' : 'hidden' }}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
 						<path d={left.icon} />
