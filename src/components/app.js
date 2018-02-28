@@ -19,7 +19,7 @@ if (module.hot) {
 
 export default class App extends Component {
 
-	state = { snoo: '' }
+	state = { init: false }
 
 	/** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
@@ -36,12 +36,16 @@ export default class App extends Component {
 	
 		script.onload = () => {
 			window.snoo = new window.snoowrap(auth);
+			this.setState({ init: true });
 		};
 	
 		document.body.appendChild(script);
 	}
 
 	render({ state }) {
+		if (window.snoo === undefined) {
+			return (<div>Loading...</div>);
+		}
 		return (<div id="app">
 			<Provider store={store}>
 				<Router onChange={this.handleRoute}>

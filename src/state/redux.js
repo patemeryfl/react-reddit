@@ -1,5 +1,6 @@
 import search from '../routes/search/reducers';
-import posts from '../routes/posts/reducers';
+import posts from '../routes/posts/post_reducer';
+import comments from '../routes/posts/comment_reducer';
 
 const async = (state, action) => {
 	switch (action.type) {
@@ -16,6 +17,7 @@ const async = (state, action) => {
 
 const initialState = {
 	posts: {},
+	comments: [],
 	inbox: {},
 	profile: {},
 	search: {},
@@ -47,7 +49,7 @@ const createStore = (reducer, initialState) => {
 	return { getState, dispatch, subscribe };
 };
 
-const combineReducers = (reducers) => (state = { dispatch: '' }, action) => Object.keys(reducers).reduce(
+const combineReducers = (reducers) => (state , action) => Object.keys(reducers).reduce(
 	(nextState, key) => {
 		nextState[key] = reducers[key](
 			state[key], action);
@@ -55,6 +57,6 @@ const combineReducers = (reducers) => (state = { dispatch: '' }, action) => Obje
 	}, {});
 
 
-const APP = combineReducers({ posts, search, async });
+const APP = combineReducers({ posts, comments, search, async });
 
 export default createStore(APP, initialState);

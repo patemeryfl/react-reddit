@@ -11,7 +11,8 @@ class PostsContainer extends Component {
 	state = {
 		showPostDetails: false,
 		new: null,
-		fetched: false,
+		fetchedPosts: false,
+		fetchedComments: false,
 		isFetching: false,
 		currentPost: null,
 		comments: []
@@ -19,7 +20,7 @@ class PostsContainer extends Component {
 
 	onSelect = (post) => {
 		this.props.dispatch({ type: 'GET_COMMENTS', post });
-		this.setState({ fetched: false });
+		this.setState({ fetchedComments: false });
 		this.setState({ showPostDetails: true, currentPost: post });
 	}
 
@@ -27,14 +28,23 @@ class PostsContainer extends Component {
 		this.setState({ showPostDetails: false });
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		this.props.dispatch({ type: 'GET_HOT' });
 	}
 
+	// componentWillReceiveProps(props) {
+
+	// }
+
 	render(props, state) {
-		if (this.props.posts instanceof Promise && state.fetched === false) {
+		if (this.props.posts instanceof Promise && this.state.fetchedPosts === false) {
 			this.props.posts.then(res => {
-				this.setState({ new: res, fetched: true, comments: res.comments });
+				this.setState({ fetchedPosts: true, new: res });
+			});
+		}
+		if (this.props.comments instanceof Promise && this.state.fetchedComments === false) {
+			this.props.comments.then(res => {
+				this.setState({ fetchedComments: true, comments: res.comments });
 			});
 		}
 		if (state.new === null) return (<div>Loading</div>);
