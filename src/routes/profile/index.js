@@ -1,24 +1,40 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
 import style from './style';
 import Header from '../../components/header';
+import User from '../../components/user';
 
-export default class Profile extends Component {
+class Profile extends Component {
 
-	state = {}
+	state = {
+		user: '',
+		fetchedUser: false
+	}
 
-	render({ user }, { time, count }) {
-		return (
-			<div>
-				<Header
-					left={{ text: 'Accounts', showIcon: false, icon: '' }}
-					title={{ text: user, showIcon: false }}
-					right={{ icons: [] }}
-				/>
-				<div class={style.profile}>
-					<h1>Profile: {user}</h1>
-					<p>This is the user profile for a user named { user }.</p>
+	render(state) {
+		if (this.props.profile instanceof Promise && this.state.fetchedUser === false) {
+			this.props.profile.then(user => {
+				this.setState({ fetchedUser: true, user });
+			});
+		}
+		else if (this.state.fetchedUser === true) {
+			return (
+				<div>
+					<Header
+						left={{ text: 'Accounts', showIcon: false, icon: '' }}
+						title={{ text: this.state.user.name, showIcon: false }}
+						right={{ icons: [] }}
+					/>
+					<div class={style.profile}>
+						<User user={this.state.user} />
+					</div>
 				</div>
-			</div>
-		);
+			);
+		}
+		else {
+			return (<div>Loading...</div>);
+		}
 	}
 }
+
+export default connect(state => state)(Profile);

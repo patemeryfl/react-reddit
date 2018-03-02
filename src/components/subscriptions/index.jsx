@@ -8,9 +8,9 @@ const Subscriptions = () => (
 			left={{ text: '', showIcon: true, icon: icons.header.left }}
 			title={{ text: 'Subreddits', showIcon: false }}
 			right={{ text: 'Edit', icons: ['',''] }}
-			onLeftClick={this.onNavigate('')}
+			onLeftClick={this.addSubscription}
 		/>
-		<Subscriptions />
+		
 	</div>
 );
 

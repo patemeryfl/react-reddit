@@ -51,7 +51,7 @@ export default class App extends Component {
 				<Router onChange={this.handleRoute}>
 					<PostsContainer path="/" />
 					<Inbox path="/inbox" />
-					<Profile path="/profile/" user="me" />
+					<Profile path="/profile/" />
 					<Profile path="/profile/:user" />
 					<Search path="/search" />
 					<Settings path="/settings" />

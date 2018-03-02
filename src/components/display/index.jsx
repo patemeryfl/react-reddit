@@ -12,9 +12,6 @@ const Display = ({ selectedPost, onNavigate, comments }) =>  {
 	let currentTime = new Date().getTime();
 	let timeSincePost = currentTime - selectedPost.created_utc;
 	
-	if (comments === undefined) {
-		return ( <div>Loading...</div> );
-	}
 	return (
 		<div>
 			<Header
