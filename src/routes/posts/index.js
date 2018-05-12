@@ -19,7 +19,6 @@ class PostsContainer extends Component {
 	}
 
 	addSubscription = () => {
-		console.log('Added');
 	}
 
 	changeView = (view, post, subreddit) => {

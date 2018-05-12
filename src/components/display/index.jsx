@@ -1,17 +1,20 @@
 import { h } from 'preact';
 import { icons } from '../../assets/svgs';
+import { numberWithCommas, convertTime } from '../../assets/utilities';
 import Header from '../header';
 import Comment from '../comment';
 import style from './style';
-
-const numberWithCommas = (x) => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 const Display = ({ selectedPost, onNavigate, comments }) =>  {
 	let ups = numberWithCommas(selectedPost.ups);
 	let numComments = numberWithCommas(selectedPost.num_comments);
 	let currentTime = new Date().getTime();
 	let timeSincePost = currentTime - selectedPost.created_utc;
+	let imageUrl = '';
 	
+	if (selectedPost.preview) {
+		imageUrl = selectedPost.preview.images[0].resolutions[selectedPost.preview.images[0].resolutions.length - 2].url;
+	}
 	return (
 		<div>
 			<Header
@@ -21,7 +24,7 @@ const Display = ({ selectedPost, onNavigate, comments }) =>  {
 				onLeftClick={onNavigate}
 			/>
 			<div class={style.container}>
-				<img src={selectedPost.thumbnail} />
+				<img src={imageUrl} />
 				<article>
 					<h4>{selectedPost.title}</h4>
 					in {selectedPost.subreddit.display_name} by {selectedPost.author.name}<br />
@@ -41,7 +44,7 @@ const Display = ({ selectedPost, onNavigate, comments }) =>  {
 						<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
 							<path d={icons.post.clock} />
 						</svg>&nbsp;&nbsp;
-						{timeSincePost}
+						{convertTime(timeSincePost)}
 					</span>
 				</article>
 				<footer>

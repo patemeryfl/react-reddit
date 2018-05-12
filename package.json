@@ -30,6 +30,7 @@
     "axios": "^0.18.0",
     "hex2rgba": "^0.0.1",
     "node-sass": "^4.7.2",
+    "npm": "^6.0.0",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
     "preact-redux": "^2.0.3",

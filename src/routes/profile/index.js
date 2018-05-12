@@ -1,6 +1,5 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
-import style from './style';
 import Header from '../../components/header';
 import User from '../../components/user';
 
@@ -25,7 +24,7 @@ class Profile extends Component {
 						title={{ text: this.state.user.name, showIcon: false }}
 						right={{ icons: [] }}
 					/>
-					<div class={style.profile}>
+					<div class="profile">
 						<User user={this.state.user} />
 					</div>
 				</div>

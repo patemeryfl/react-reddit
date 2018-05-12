@@ -1,40 +1,49 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
 import style from './style';
 import Header from '../../components/header';
 import Message from '../../components/message';
 import { icons } from '../../assets/svgs';
 
-const messages = [
-	{
-		title: 'This is a title',
-		message: 'Here is a message'
-	},
-	{
-		title: 'This is another title',
-		message: 'Here is another message'
-	},
-	{
-		title: 'This is a third title',
-		message: 'Here is a third message'
+class Inbox extends Component {
+
+	state = {
+		fetchedInbox: false,
+		messages: {}
 	}
-];
 
-export default class Inbox extends Component {
+	componentWillMount() {
+		this.props.dispatch({ type: 'GET_INBOX' });
+	}
 
-	state = {}
-
-	render({ query }, { time, count }) {
-		return (
+	render({ state, props }) {
+		if (this.props.inbox instanceof Promise && this.state.fetchedInbox === false) {
+			this.props.inbox.then(messages => {
+				this.setState({ fetchedInbox: true, messages });
+			});
+		}
+		else if (this.state.fetchedInbox ===  true) {
+			return (
+				<div class={style.inbox}>
+					<Header
+						left={{ text: '', showIcon: true, icon: icons.inbox.read }}
+						title={{ text: 'Inbox', showIcon: false }}
+						right={{ icons: ['', icons.inbox.new] }}
+					/>
+					{ this.state.messages.map(message => <Message data={message} />)}
+				</div>
+			);
+		}
+		else return (
 			<div>
 				<Header
 					left={{ text: '', showIcon: true, icon: icons.inbox.read }}
 					title={{ text: 'Inbox', showIcon: false }}
 					right={{ icons: ['', icons.inbox.new] }}
 				/>
-				<div class={style.inbox}>
-					{ messages.map(message => <Message data={message} />)}
-				</div>
-			</div>
-		);
+				Loading...
+			</div>);
 	}
 }
+
+export default connect(state => state)(Inbox);

@@ -34,6 +34,7 @@
     margin-bottom: 10px;
     margin-left: 10%;
     margin-right: 10%;
+    cursor: pointer;
 
     article {
         padding: 5px;
@@ -58,7 +59,6 @@
             fill: $brand;
             width: 24;
             height: 24;
-            viewBox: 0 0 24 24;
         }
     }
 }
