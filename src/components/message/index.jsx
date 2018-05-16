@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import { convertTime } from '../../assets/utilities';
 import style from './style';
 
 const Message = ({ data }) => {
@@ -13,13 +14,11 @@ const Message = ({ data }) => {
 		case 'Comment':
 			return (
 				<div class={style.container}>
-					<header>{data.author} replied to your comment {}</header>
+					<header>{data.author.name} replied to your comment {} at {convertTime(data.created)}</header>
 					<article>{data.body}</article>
-					<footer>in {data.subreddit.subreddit_name_prefixed}</footer>
+					<footer>in {data.subreddit_name_prefixed}</footer>
 				</div>
 			);
-		default:
-			
 	}
 };
 

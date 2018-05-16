@@ -21,7 +21,10 @@ const initialState = {
 	posts: {},
 	comments: [],
 	inbox: {},
-	profile: {},
+	profile: {
+		user: {},
+		overview: {}
+	},
 	search: {},
 	settings: {},
 	isFetching: false,

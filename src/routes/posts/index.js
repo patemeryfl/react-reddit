@@ -18,24 +18,29 @@ class PostsContainer extends Component {
 		subs: []
 	}
 
-	addSubscription = () => {
-	}
-
-	changeView = (view, post, subreddit) => {
-		this.setState({ view });
-		switch (view) {
-			case 'POSTS':
-				//Implement refresh rate
-				break;
-			case 'SUBSCRIPTIONS':
-				break;
-			case 'COMMENTS':
-				window.scrollTo(0, 0);
-				this.props.dispatch({ type: 'GET_COMMENTS', post });
-				this.setState({ fetchedComments: false, currentPost: post });
-				break;
-			default:
-				this.setState({ view: 'POSTS' });
+	actions = {
+		getMe: async () => {
+			const user = await window.snoo.getMe();
+			this.props.dispatch({ type: 'SET_ME', data: user });
+		},
+		addSubscription: () => {
+		},
+		changeView: (view, post, subreddit) => {
+			this.setState({ view });
+			switch (view) {
+				case 'POSTS':
+					//Implement refresh rate
+					break;
+				case 'SUBSCRIPTIONS':
+					break;
+				case 'COMMENTS':
+					window.scrollTo(0, 0);
+					this.props.dispatch({ type: 'GET_COMMENTS', post });
+					this.setState({ fetchedComments: false, currentPost: post });
+					break;
+				default:
+					this.setState({ view: 'POSTS' });
+			}
 		}
 	}
 
@@ -45,7 +50,7 @@ class PostsContainer extends Component {
 	}
 
 	componentDidMount() {
-		this.props.dispatch({ type: 'GET_ME' });
+		this.actions.getMe();
 	}
 
 	render(props, state) {
@@ -68,7 +73,7 @@ class PostsContainer extends Component {
 					});
 				}
 				else if (state.fetchedPosts ===  true) {
-					return <PostsList posts={state.posts} onPostClick={this.changeView} onLeftClick={this.changeView} />;
+					return <PostsList posts={state.posts} onPostClick={this.actions.changeView} onLeftClick={this.actions.changeView} />;
 				}
 				else return (<div>Loading...</div>);
 				break;
@@ -79,7 +84,7 @@ class PostsContainer extends Component {
 					});
 				}
 				else if (state.fetchedComments ===  true) {
-					return <Display selectedPost={this.state.currentPost} onNavigate={() => this.changeView('POSTS')} comments={this.state.comments} />;
+					return <Display selectedPost={this.state.currentPost} onNavigate={() => this.actions.changeView('POSTS')} comments={this.state.comments} />;
 				}
 				else return (<div>Loading...</div>);
 				break;

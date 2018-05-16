@@ -13,7 +13,7 @@ const Display = ({ selectedPost, onNavigate, comments }) =>  {
 	let imageUrl = '';
 	
 	if (selectedPost.preview) {
-		imageUrl = selectedPost.preview.images[0].resolutions[selectedPost.preview.images[0].resolutions.length - 2].url;
+		imageUrl = selectedPost.preview.images[0].resolutions[selectedPost.preview.images[0].resolutions.length - 1].url;
 	}
 	return (
 		<div>

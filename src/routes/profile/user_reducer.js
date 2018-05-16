@@ -1,15 +1,12 @@
-const GET_ME = 'GET_ME';
+const SET_ME = 'SET_ME';
+const SET_OVERVIEW = 'SET_OVERVIEW';
 
 const profile = (state, action) => {
 	switch (action.type) {
-		case GET_ME:
-			return new Promise((res, rej) => {
-				window.snoo.getMe().then(personal => {
-					res(personal);
-				}).catch(e => {
-					rej([...state, { errors: [e, 'There was an error getting your info.'] }]);
-				});
-			});
+		case SET_ME:
+			return { ...state, user: action.data };
+		case SET_OVERVIEW:
+			return { ...state, overview: action.data };
 		default:
 			return state;
 	}

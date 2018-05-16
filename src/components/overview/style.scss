@@ -20,6 +20,9 @@
     article {
         color: $subtle;
         padding: 5px;
+        img {
+            width: 100%;
+        }
     }
     footer {
         color: $white;
