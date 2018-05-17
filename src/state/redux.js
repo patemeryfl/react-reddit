@@ -18,7 +18,11 @@ const async = (state, action) => {
 };
 
 const initialState = {
-	posts: {},
+	posts: {
+		posts: {},
+		subscriptions: {},
+		comments: {}
+	},
 	comments: [],
 	inbox: {},
 	profile: {

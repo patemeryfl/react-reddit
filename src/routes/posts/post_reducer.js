@@ -1,43 +1,21 @@
-const GET_HOT = 'GET_HOT';
-const GET_POPULAR = 'GET_POPULAR';
-const GET_SELECTION = 'GET_SELECTION';
-const GET_SUBSCRIPTIONS = 'GET_SUBSCRIPTIONS';
+const SET_HOT = 'SET_HOT';
+const SET_POPULAR = 'SET_POPULAR';
+const SET_SELECTION = 'SET_SELECTION';
+const SET_COMMENTS = 'SET_COMMENTS';
+const SET_SUBSCRIPTIONS = 'SET_SUBSCRIPTIONS';
 
 const posts = (state, action) => {
 	switch (action.type) {
-		case GET_HOT:
-			return new Promise((res, rej) => {
-				window.snoo.getHot().then(posts => {
-					res(posts);
-					return [...state, { posts }];
-				}).catch(e => {
-					rej([...state, { errors: [e, 'There was an error fetching the new subreddits'] }]);
-				});
-			});
-		case GET_POPULAR:
-			return new Promise((res, rej) => {
-				window.snoo.getPopularSubreddits().then(subreddits => {
-					res(subreddits);
-				}).catch(e => {
-					rej([...state, { errors: [e, 'There was an error fetching the popular subreddits'] }]);
-				});
-			});
-		case GET_SELECTION:
-			return new Promise((res, rej) => {
-				window.snoo.searchSubreddits({ query: action.query }).then(subreddits => {
-					res(subreddits);
-				}).catch(e => {
-					rej([...state, { errors: [e, 'There was an error fetching the popular subreddits'] }]);
-				});
-			});
-		case GET_SUBSCRIPTIONS:
-			return new Promise((res, rej) => {
-				window.snoo.getSubscriptions({ limit: 20 }).then(subreddits => {
-					res(subreddits);
-				}).catch(e => {
-					rej([...state, { errors: [e, 'There was an error fetching the popular subreddits'] }]);
-				});
-			});
+		case SET_HOT:
+			return { ...state, posts: action.data };
+		case SET_POPULAR:
+			return { ...state, posts: action.data };
+		case SET_SELECTION:
+			return { ...state, posts: action.data };
+		case SET_COMMENTS:
+			return { ...state, comments: action.data };
+		case SET_SUBSCRIPTIONS:
+			return { ...state, subscriptions: action.data };
 		default:
 			return state;
 	}

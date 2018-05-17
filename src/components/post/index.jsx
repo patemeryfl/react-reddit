@@ -15,7 +15,7 @@ const Post = ({ data, onPostClick }) => {
 	}
 
 	return (
-		<div key={data.id} class={style.post} onClick={() => onPostClick('COMMENTS', data)}>
+		<div key={data.id} class={style.post} onClick={() => onPostClick(data)}>
 			<header class={style.header}>
 				<h1><a href={data.url}>{data.title}</a></h1>
 			</header>
