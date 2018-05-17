@@ -15,6 +15,13 @@ const posts = (state, action) => {
 		case SET_COMMENTS:
 			return { ...state, comments: action.data };
 		case SET_SUBSCRIPTIONS:
+			action.data.sort((a, b) => {
+				let nameA = a.display_name.toUpperCase();
+				let nameB = b.display_name.toUpperCase();
+				if (nameA < nameB) { return -1; }
+				if (nameA > nameB) { return 1; }
+				return 0;
+			});
 			return { ...state, subscriptions: action.data };
 		default:
 			return state;

@@ -77,7 +77,7 @@ class PostsContainer extends Component {
 					this.setState({ fetchedSubscriptions: true });
 				}
 				else if (state.fetchedSubscriptions ===  true) {
-					return <Subscriptions {...this.props.posts.subscriptions} />;
+					return <Subscriptions subs={this.props.posts.subscriptions} />;
 				}
 				else return (<div>Loading...</div>);
 				break;

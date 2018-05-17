@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { icons } from '../../assets/svgs';
 import Header from '../header';
 
-const Subscriptions = ({ subscriptions }) => (
+const Subscriptions = ({ subs }) => (
 	<div>
 		<Header
 			left={{ text: '', showIcon: true, icon: icons.header.left }}
@@ -11,7 +11,7 @@ const Subscriptions = ({ subscriptions }) => (
 			onLeftClick={this.addSubscription}
 		/>
 		<div>
-			{subscriptions.map(sub => <p>{sub.name}</p>)}
+			{subs.map(sub =>  (<p>{sub.display_name}</p>))}
 		</div>
 	</div>
 );
