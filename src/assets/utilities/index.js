@@ -12,3 +12,5 @@ export const isEmpty = (obj) => {
 	}
 	return false;
 };
+
+export const capitalizeFirst = (word) => word.charAt(0).toUpperCase() + word.slice(1);

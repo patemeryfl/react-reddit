@@ -7,6 +7,7 @@ import { auth } from '../assets/auth/oAuth';
 //Stateless
 import Footer from './footer';
 //Connected
+import Account from '../routes/account';
 import PostsContainer from '../routes/posts';
 import Inbox from '../routes/inbox';
 import Profile from '../routes/profile';
@@ -49,7 +50,8 @@ export default class App extends Component {
 		return (<div id="app">
 			<Provider store={store}>
 				<Router onChange={this.handleRoute}>
-					<PostsContainer path="/" />
+					<Account path="/" />
+					<PostsContainer path="/posts" />
 					<Inbox path="/inbox" />
 					<Profile path="/profile/" />
 					<Profile path="/profile/:user" />

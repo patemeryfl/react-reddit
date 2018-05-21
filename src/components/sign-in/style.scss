@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import '../../style/colors';
+
+.container {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 20% 10%;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    background-color: $dark;
+
+    h2 {
+        line-height: 5px;
+    }
+    h3 {
+        line-height: 10px;
+        padding-bottom: 10%;
+    }
+
+    input {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 30px;
+        border-radius: 5px;
+        border: none;
+        padding: 5px;
+    }
+    .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+        button {
+            height: 50px;
+            width: 48%;
+            border-radius: 5px;
+            background-color: $brand;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1em;
+            &:hover {
+                transition: all 0.25s ease-in-out;
+                background-color: rgba(0,0,0,0.2);
+            }
+        }
+    }
+
+}
+
+.title {
+    font-family: 'Pacifico', cursive;
+    font-size: 6.5em;
+    color: white;
+    text-align: center;
+}
+.subtitle {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.8em;
+    color: white;
+    text-align: center;
+}
+
+.signin {
+    -webkit-animation-name: signin; 
+    -webkit-animation-duration: .5s;
+    animation-name: signin;
+    animation-duration: .5s;
+    position: absolute;
+    top: -1000px;
+    left: 0px;
+    padding: 20% 10%;
+    height: 100%;
+    width: 100%;
+    z-index: 5;
+    background-color: #673AB7;
+    form {
+        input {
+            margin-bottom: 10px;
+        }
+        .actions {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+            button {
+                height: 50px;
+                width: 48%;
+                border-radius: 5px;
+                background-color: cornflowerblue;
+                border: none;
+                color: white;
+                cursor: pointer;
+                &:hover {
+                    transition: all 0.25s ease-in-out;
+                    background-color: rgba(0,0,0,0.2);
+                }
+            }
+        }
+    }
+}

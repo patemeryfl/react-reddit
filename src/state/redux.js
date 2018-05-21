@@ -1,3 +1,4 @@
+import account from '../routes/account/account_reducer';
 import posts from '../routes/posts/post_reducer';
 import comments from '../routes/posts/comment_reducer';
 import inbox from '../routes/inbox/inbox_reducer';
@@ -18,6 +19,10 @@ const async = (state, action) => {
 };
 
 const initialState = {
+	account: {
+		loggedIn: false,
+		user: {}
+	},
 	posts: {
 		posts: {},
 		subscriptions: {},
@@ -66,6 +71,6 @@ const combineReducers = (reducers) => (state , action) => Object.keys(reducers).
 	}, {});
 
 
-const APP = combineReducers({ posts, comments, inbox, profile, search, async });
+const APP = combineReducers({ account, posts, comments, inbox, profile, search, async });
 
 export default createStore(APP, initialState);

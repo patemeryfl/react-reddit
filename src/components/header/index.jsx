@@ -36,6 +36,7 @@ const Header = ({ left, onLeftClick, title, right }) => (
 						<path d={right.icons[1]} />
 					</svg>
 				</button>
+				<span>{right.text}</span>
 			</div>
 		</nav>
 	</header>

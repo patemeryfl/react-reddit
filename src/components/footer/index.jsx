@@ -8,7 +8,7 @@ import { icons } from '../../assets/svgs';
 const Footer = () => (
 	<header class={style.header}>
 		<nav>
-			<Link activeClassName={style.active} href="/">
+			<Link activeClassName={style.active} href="/posts">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 					<path d={icons.footer.posts} />
 				</svg><br />
