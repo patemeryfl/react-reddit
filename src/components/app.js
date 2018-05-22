@@ -1,7 +1,6 @@
+/* eslint no-case-declarations: 0 */
 import { h, Component } from 'preact';
-import { Router } from 'preact-router';
-import { Provider } from 'preact-redux';
-import store from '../state/redux';
+import { Router, route } from 'preact-router';
 import { auth } from '../assets/auth/oAuth';
 
 //Stateless
@@ -9,6 +8,8 @@ import Footer from './footer';
 //Connected
 import Account from '../routes/account';
 import PostsContainer from '../routes/posts';
+import Subscriptions from '../routes/subscriptions';
+import Comments from '../routes/comments';
 import Inbox from '../routes/inbox';
 import Profile from '../routes/profile';
 import Search from '../routes/search';
@@ -20,14 +21,33 @@ if (module.hot) {
 
 export default class App extends Component {
 
-	state = { init: false }
+	state = {
+		init: false,
+		user: {}
+	}
+
+	actions = {
+		isAuthenticated: async () => {
+			const user = window.snoo.getMe();
+			await this.setState({ user });
+		}
+	}
 
 	/** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
 	 *	@param {string} event.url	The newly routed URL
 	 */
 	handleRoute = e => {
-		this.currentUrl = e.url;
+		switch (e.path) {
+			case '/':
+			  const isAuthed = false;
+			  if (!isAuthed) {
+				  route('/account', true);
+			  }
+			  else {
+				  this.currentUrl = e.url;
+				}
+		}
 	};
 
 	componentWillMount() {
@@ -43,23 +63,24 @@ export default class App extends Component {
 		document.body.appendChild(script);
 	}
 
-	render({ state }) {
+	render() {
 		if (window.snoo === undefined) {
 			return (<div>Loading...</div>);
 		}
-		return (<div id="app">
-			<Provider store={store}>
+		return (
+			<div id="app">
 				<Router onChange={this.handleRoute}>
-					<Account path="/" />
-					<PostsContainer path="/posts" />
+					<Account path="/account" />
+					<PostsContainer path="/" />
+					<Subscriptions path="/subscriptions" />
+					<Comments path="/comments/:id" />
 					<Inbox path="/inbox" />
 					<Profile path="/profile/" />
-					<Profile path="/profile/:user" />
 					<Search path="/search" />
 					<Settings path="/settings" />
 				</Router>
-			</Provider>
-			<Footer />
-		</div>);
+				<Footer />
+			</div>
+		);
 	}
 }

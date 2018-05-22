@@ -1,14 +1,20 @@
 import { h, Component } from 'preact';
-import { connect } from 'preact-redux';
 import style from './style';
 import { icons } from '../../assets/svgs';
-
 
 class Search extends Component {
 
 	state = {
 		query: 'Search Posts, Subreddits, Users',
-		trending: ['Cozy Places', 'Oddly Satisfying', 'Vintage Menus', 'Trees', 'Meditation']
+		trending: ['Cozy Places', 'Oddly Satisfying', 'Vintage Menus', 'Trees', 'Meditation'],
+		results: {}
+	}
+
+	actions = {
+		getSearch: async () => {
+			const results = await window.snoo.getSubreddit(this.state.query).getNew();
+			await this.setState({ results });
+		}
 	}
 
 	handleChange = e => {
@@ -74,4 +80,4 @@ class Search extends Component {
 }
 
 
-export default connect(state => state)(Search);
+export default Search;

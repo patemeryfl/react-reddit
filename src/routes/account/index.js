@@ -1,11 +1,10 @@
 import { h, Component } from 'preact';
-import { connect } from 'preact-redux';
 import SignUp from '../../components/sign-up';
 import SignIn from '../../components/sign-in';
 
 class Account extends Component {
 	state = {
-		view: '',
+		view: 'SIGN_IN',
 		signIn: {
 			username: '',
 			email: '',
@@ -19,11 +18,6 @@ class Account extends Component {
 		}
 	};
 	actions = {
-		checkStatus: () => {
-			if (!this.props.account.loggedIn) {
-				this.setState({ view: 'SIGN_IN' });
-			}
-		},
 		validateUser: (credentials) => {
 
 		},
@@ -52,9 +46,6 @@ class Account extends Component {
 		signIn: async () => {},
 		errors: {}
 	};
-	componentWillMount() {
-		this.actions.checkStatus();
-	}
 	render() {
 		if (this.state.view === 'SIGN_UP') {
 			return <SignUp {...this.actions} />;
@@ -63,4 +54,4 @@ class Account extends Component {
 	}
 }
 
-export default connect(state => state)(Account);
+export default Account;

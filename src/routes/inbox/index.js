@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import { connect } from 'preact-redux';
+import { isEmpty } from '../../assets/utilities';
 import style from './style';
 import Header from '../../components/header';
 import Message from '../../components/message';
@@ -8,21 +8,26 @@ import { icons } from '../../assets/svgs';
 class Inbox extends Component {
 
 	state = {
-		fetchedInbox: false,
+		fetchedMessages: false,
 		messages: {}
 	}
 
-	componentWillMount() {
-		this.props.dispatch({ type: 'GET_INBOX' });
+	actions = {
+		getInbox: async () => {
+			const messages = await window.snoo.getInbox();
+			await this.setState({ messages });
+		}
 	}
 
-	render({ state, props }) {
-		if (this.props.inbox instanceof Promise && this.state.fetchedInbox === false) {
-			this.props.inbox.then(messages => {
-				this.setState({ fetchedInbox: true, messages });
-			});
+	componentWillMount() {
+		this.actions.getInbox();
+	}
+
+	render(props, state) {
+		if (isEmpty(state.messages) === false && this.state.fetchedMessages === false) {
+			this.setState({ fetchedMessages: true });
 		}
-		else if (this.state.fetchedInbox ===  true) {
+		if (state.fetchedMessages ===  true) {
 			return (
 				<div class={style.inbox}>
 					<Header
@@ -34,16 +39,8 @@ class Inbox extends Component {
 				</div>
 			);
 		}
-		else return (
-			<div>
-				<Header
-					left={{ text: '', showIcon: true, icon: icons.inbox.read }}
-					title={{ text: 'Inbox', showIcon: false }}
-					right={{ icons: ['', icons.inbox.new] }}
-				/>
-				Loading...
-			</div>);
+		return (<div>Loading...</div>);
 	}
 }
 
-export default connect(state => state)(Inbox);
+export default Inbox;

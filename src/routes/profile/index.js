@@ -1,5 +1,4 @@
 import { h, Component } from 'preact';
-import { connect } from 'preact-redux';
 import { isEmpty } from '../../assets/utilities';
 import Header from '../../components/header';
 import User from '../../components/user';
@@ -7,38 +6,45 @@ import User from '../../components/user';
 class Profile extends Component {
 
 	state = {
+		user: {},
+		overview: {},
 		fetchedUser: false,
 		fetchedOverview: false
 	}
 
 	actions = {
+		getMe: async () => {
+			const user = await window.snoo.getMe();
+			await this.setState({ user });
+		},
 		getOverview: async () => {
 			const overview = await window.snoo.getMe().getOverview();
-			this.props.dispatch({ type: 'SET_OVERVIEW', data: overview });
+			await this.setState({ overview });
 		}
 	}
 
-	componentDidMount() {
+	componentWillMount() {
+		this.actions.getMe();
 		this.actions.getOverview();
 	}
 
-	render(state) {
-		if (isEmpty(this.props.profile.user) === false && this.state.fetchedUser === false) {
+	render(props, state) {
+		if (isEmpty(state.user) === false && state.fetchedUser === false) {
 			this.setState({ fetchedUser: true });
 		}
-		if (isEmpty(this.props.profile.overview) === false && this.state.fetchedOverview === false) {
+		if (isEmpty(state.overview) === false && state.fetchedOverview === false) {
 			this.setState({ fetchedOverview: true });
 		}
-		if (this.state.fetchedUser === true && this.state.fetchedOverview === true) {
+		if (state.fetchedUser === true && state.fetchedOverview === true) {
 			return (
 				<div>
 					<Header
 						left={{ text: 'Accounts', showIcon: false, icon: '' }}
-						title={{ text: this.props.profile.user.name, showIcon: false }}
+						title={{ text: state.user.name, showIcon: false }}
 						right={{ icons: [] }}
 					/>
 					<div class="profile">
-						<User {...this.props.profile} />
+						<User {...state} />
 					</div>
 				</div>
 			);
@@ -47,4 +53,4 @@ class Profile extends Component {
 	}
 }
 
-export default connect(state => state)(Profile);
+export default Profile;
