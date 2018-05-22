@@ -3,6 +3,7 @@ import { icons } from '../../assets/svgs';
 import { route } from 'preact-router';
 import { numberWithCommas, convertTime } from '../../assets/utilities';
 import Header from '../../components/header';
+import Loader from '../../components/loader';
 import Comment from '../../components/comment';
 import style from './style';
 
@@ -41,7 +42,10 @@ class Comments extends Component {
 		}
 		if (state.fetchedComments ===  true) {
 			let imageUrl;
-			if (state.post.preview) {
+			if (state.post.preview.images[0].resolutions.length === 0) {
+				imageUrl = ''; //Image URL is broken
+			}
+			else {
 				imageUrl = state.post.preview.images[0].resolutions[state.post.preview.images[0].resolutions.length - 1].url;
 			}
 			return (
@@ -110,6 +114,7 @@ class Comments extends Component {
 				</div>
 			);
 		}
+		return (<Loader />);
 	}
 }
 

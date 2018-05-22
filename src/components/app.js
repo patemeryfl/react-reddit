@@ -1,10 +1,11 @@
-/* eslint no-case-declarations: 0 */
+/* eslint no-case-declarations: 0, new-cap: 0 */
 import { h, Component } from 'preact';
 import { Router, route } from 'preact-router';
 import { auth } from '../assets/auth/oAuth';
 
 //Stateless
 import Footer from './footer';
+import Loader from '../../components/loader';
 //Connected
 import Account from '../routes/account';
 import PostsContainer from '../routes/posts';
@@ -65,13 +66,13 @@ export default class App extends Component {
 
 	render() {
 		if (window.snoo === undefined) {
-			return (<div>Loading...</div>);
+			return (<Loader />);
 		}
 		return (
 			<div id="app">
 				<Router onChange={this.handleRoute}>
 					<Account path="/account" />
-					<PostsContainer path="/" />
+					<PostsContainer path="/:subreddit?" />
 					<Subscriptions path="/subscriptions" />
 					<Comments path="/comments/:id" />
 					<Inbox path="/inbox" />

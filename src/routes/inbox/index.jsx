@@ -3,6 +3,7 @@ import { isEmpty } from '../../assets/utilities';
 import style from './style';
 import Header from '../../components/header';
 import Message from '../../components/message';
+import Loader from '../../components/loader';
 import { icons } from '../../assets/svgs';
 
 class Inbox extends Component {
@@ -39,7 +40,7 @@ class Inbox extends Component {
 				</div>
 			);
 		}
-		return (<div>Loading...</div>);
+		return (<Loader />);
 	}
 }
 

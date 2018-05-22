@@ -1,9 +1,11 @@
 /* eslint react/jsx-no-bind: 0 */
 import { h, Component } from 'preact';
+import { route } from 'preact-router';
 import { icons } from '../../assets/svgs';
 import { capitalizeFirst, isEmpty } from '../../assets/utilities';
 import style from './style';
 import Header from '../../components/header';
+import Loader from '../../components/loader';
 
 class Subscriptions extends Component {
 	state = {
@@ -31,6 +33,9 @@ class Subscriptions extends Component {
 				if (nameA > nameB) { return 1; }
 			});
 			await this.setState({ subscriptions });
+		},
+		getUser: (subreddit) => {
+			route(`/${subreddit.display_name}`, true);
 		},
 		addSubscription: () => {}
 	}
@@ -85,7 +90,7 @@ class Subscriptions extends Component {
 				</div>
 			);
 		}
-		return (<div>Loading</div>);
+		return (<Loader />);
 	}
 }
 

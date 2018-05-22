@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import { isEmpty } from '../../assets/utilities';
 import Header from '../../components/header';
+import Loader from '../../components/loader';
 import User from '../../components/user';
 
 class Profile extends Component {
@@ -49,7 +50,7 @@ class Profile extends Component {
 				</div>
 			);
 		}
-		return (<div>Loading...</div>);
+		return (<Loader />);
 	}
 }
 

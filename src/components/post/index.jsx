@@ -11,7 +11,12 @@ const Post = ({ data, onPostClick }) => {
 	let imageUrl = '';
 	
 	if (data.preview) {
-		imageUrl = data.preview.images[0].resolutions[data.preview.images[0].resolutions.length - 1].url;
+		if (data.preview.images[0].resolutions.length === 0) {
+			imageUrl = ''; //Image URL is broken
+		}
+		else {
+			imageUrl = data.preview.images[0].resolutions[data.preview.images[0].resolutions.length - 1].url;
+		}
 	}
 
 	return (

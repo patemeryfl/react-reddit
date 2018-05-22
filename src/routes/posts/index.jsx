@@ -2,6 +2,7 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import { isEmpty } from '../../assets/utilities';
+import Loader from '../../components/loader';
 import PostsList from '../../components/posts-list';
 
 class PostsContainer extends Component {
@@ -19,13 +20,25 @@ class PostsContainer extends Component {
 		getComments: (post) => {
 			route(`comments/${post.id}`, true);
 		},
+		getUrl: async (url) => {
+			const sub = await window.snoo.getSubreddit(url).getHot();
+			await this.setState({ posts: sub });
+		},
 		showSubscriptions: () => {
 			route(`subscriptions`, true);
 		}
 	}
 
 	componentWillMount() {
-		this.actions.getHot();
+		if (this.props.subreddit) {
+			this.actions.getUrl(this.props.subreddit);
+		}
+		else {
+			this.actions.getHot();
+		}
+	}
+	componentWillUnmount() {
+		this.setState({ posts: {}, fetchedPosts: false });
 	}
 
 	render(props, state) {
@@ -35,7 +48,7 @@ class PostsContainer extends Component {
 		if (state.fetchedPosts ===  true) {
 			return <PostsList posts={state.posts} onPostClick={this.actions.getComments} onLeftClick={this.actions.showSubscriptions} />;
 		}
-		return (<div>Loading...</div>);
+		return (<Loader />);
 	}
 }
 
