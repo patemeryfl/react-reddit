@@ -14,16 +14,6 @@ class Subscriptions extends Component {
 		fetchedSubscriptions: false
 	}
 	actions = {
-		getPopular: async () => {
-			const popular = await window.snoo.getPopularSubreddits();
-			await popular.sort((a, b) => {
-				let nameA = a.display_name.toUpperCase();
-				let nameB = b.display_name.toUpperCase();
-				if (nameA < nameB) { return -1; }
-				if (nameA > nameB) { return 1; }
-			});
-			await this.setState({ popular });
-		},
 		getSubscriptions: async () => {
 			const subscriptions = await window.snoo.getSubscriptions();
 			await subscriptions.sort((a, b) => {
@@ -34,9 +24,10 @@ class Subscriptions extends Component {
 			});
 			await this.setState({ subscriptions });
 		},
-		getUser: (subreddit) => {
-			route(`/${subreddit.display_name}`, true);
-		},
+		getHome: () => route(`/`, true),
+		getPopular: () => route(`/popular`, true),
+		getAll: () => route(`/all`, true),
+		getUser: (subreddit) => route(`/${subreddit.display_name}`, true),
 		addSubscription: () => {}
 	}
 
@@ -53,36 +44,47 @@ class Subscriptions extends Component {
 				<div>
 					<Header
 						left={{ text: '', showIcon: true, icon: icons.header.add }}
-						title={{ text: 'Subreddits', showIcon: false }}
+						title={{ text: 'Subscriptions', showIcon: false }}
 						right={{ text: 'Edit', icons: ['',''] }}
 						onLeftClick={this.addSubscription}
 					/>
 					<div class={style.container}>
 						<button onClick={this.actions.getHome}>
-							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-								<path d={icons.footer.posts} />
+							<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 30 30">
+								<path d={icons.subscriptions.house} />
 							</svg>
-							<span class={style.title}>Home</span><br />
-							<span class={style.subtitle}>Posts from subscriptions</span>
+							<div>
+								<span class={style.title}>Home</span><br />
+								<span class={style.subtitle}>Posts from subscriptions</span>
+							</div>
 						</button>
 						<button onClick={this.actions.getPopular}>
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-								<path d={icons.footer.posts} />
+							<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 30 30">
+								<path d={icons.subscriptions.popular} />
 							</svg>
-							<span class={style.title}>Popular</span><br />
-							<span class={style.subtitle}>Most popular posts across Reddit</span>
+							<div>
+								<span class={style.title}>Popular</span><br />
+								<span class={style.subtitle}>Most popular posts across Reddit</span>
+							</div>
 						</button>
 						<button onClick={this.actions.getAll}>
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+							<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 30 30">
 								<path d={icons.footer.posts} />
 							</svg>
-							<span class={style.title}>All Posts</span><br />
-							<span class={style.subtitle}>Posts across all subreddits</span>
+							<div>
+								<span class={style.title}>All Posts</span><br />
+								<span class={style.subtitle}>Posts across all subreddits</span>
+							</div>
 						</button>
 						<div>
 							{this.state.subscriptions.map(sub => (
 								<div class={style.subscription} onClick={() => this.actions.getUser(sub)}>
-									{capitalizeFirst(sub.display_name)}
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+										<path d={icons.subscriptions.chevron} />
+									</svg>
+									<span>
+										{capitalizeFirst(sub.display_name)}
+									</span>
 								</div>
 							))}
 						</div>

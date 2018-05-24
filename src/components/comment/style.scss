@@ -3,10 +3,29 @@
 .container {
     height: 100%;
     margin-bottom: 5px;
-    padding: 0 5px;
+    padding: 5px;
+    border-top: 1px solid $dark;
+    border-bottom: 1px solid $dark;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    padding: 5px 5px;
+    svg {
+        fill: $brand;
+        margin-bottom:5px;
+    }
+}
+
+.comment {
+    padding: 5px;
 }
 
 .author {
-    background-color: $darker;
     color: $white;
 }

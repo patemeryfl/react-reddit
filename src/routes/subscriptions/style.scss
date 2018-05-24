@@ -1,23 +1,23 @@
 @import '../../style/colors';
 
 .container {
-    padding-top: 56px;
+    padding: 56px 0px;
     button {
         width: 100%;
-        padding-left: 20px;
+        padding: 5px 10px;
         border-radius: 5px;
         border: none;
         background-color: $darker;
         text-align: left;
         color: $white;
         font-size: 1em;
-        .title {
-            padding-left: 5px;
-        }
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         .subtitle {
             color: $subtle;
-            font-size: 1em;
-            padding-left: 35px;
+            font-size: .9em;
         }
         svg {
             fill: $brand;
@@ -26,10 +26,15 @@
 }
 
 .subscription {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     width: 100%;
     height: 40px;
     background-color: $dark;
-    padding: 15px 25px;
+    padding: 15px;
     margin-bottom: 2px;
     color: $white;
+    cursor: pointer;
+    svg { fill: $subtle; margin-right: 10px; }
 }

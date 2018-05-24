@@ -18,6 +18,7 @@ class PostsContainer extends Component {
 			await this.setState({ posts });
 		},
 		getComments: (post) => {
+			window.localStorage.setItem('scrollY', window.scrollY);
 			route(`comments/${post.id}`, true);
 		},
 		getUrl: async (url) => {
@@ -30,6 +31,8 @@ class PostsContainer extends Component {
 	}
 
 	componentWillMount() {
+		let position = window.localStorage.getItem('scrollY');
+		window.scrollTo(0, position);
 		if (this.props.subreddit) {
 			this.actions.getUrl(this.props.subreddit);
 		}
@@ -42,11 +45,15 @@ class PostsContainer extends Component {
 	}
 
 	render(props, state) {
+		let title = 'Home';
+		if (this.props.subreddit) {
+			title = this.props.subreddit;
+		}
 		if (isEmpty(state.posts) === false && this.state.fetchedPosts === false) {
 			this.setState({ fetchedPosts: true });
 		}
 		if (state.fetchedPosts ===  true) {
-			return <PostsList posts={state.posts} onPostClick={this.actions.getComments} onLeftClick={this.actions.showSubscriptions} />;
+			return <PostsList title={title} posts={state.posts} onPostClick={this.actions.getComments} onLeftClick={this.actions.showSubscriptions} />;
 		}
 		return (<Loader />);
 	}

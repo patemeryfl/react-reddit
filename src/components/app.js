@@ -5,7 +5,7 @@ import { auth } from '../assets/auth/oAuth';
 
 //Stateless
 import Footer from './footer';
-import Loader from '../../components/loader';
+import Loader from '../components/loader';
 //Connected
 import Account from '../routes/account';
 import PostsContainer from '../routes/posts';

@@ -14,21 +14,15 @@ class Search extends Component {
 		getSearch: async () => {
 			const results = await window.snoo.getSubreddit(this.state.query).getNew();
 			await this.setState({ results });
-		}
+		},
+		handleChange: e => {
+			this.setState({ query: e.target.value });
+		},
+		clear: () => {this.setState({ query: '' });}
 	}
 
-	handleChange = e => {
-		this.setState({ query: e.target.value });
-	}
 
-	handleSubmit = () => {
-		let { query } = this.state;
-		this.props.dispatch({ type: 'SEARCH_SUBREDDITS', query });
-	}
-
-	clear = () => {this.setState({ query: '' });}
-
-	render({ }, { query, trending }) {
+	render(props, { query, trending }) {
 		if (this.props.search instanceof Promise) {
 			this.props.search.then(res => {
 				//this.props.dispatch({ type: 'FETCHING_COMPLETED', payload: res });
@@ -37,8 +31,8 @@ class Search extends Component {
 		return (
 			<div>
 				<header class={style.header}>
-					<form onSubmit={this.handleSubmit} action="javascript:">
-						<input class={style.searchBar} placeholder={query} onChange={this.handleChange} />
+					<form onSubmit={this.actions.getSearch} action="javascript:">
+						<input class={style.searchBar} placeholder={query} onChange={this.actions.handleChange} />
 						<button type="submit">
 							<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
 								<path d={icons.search.search} />
