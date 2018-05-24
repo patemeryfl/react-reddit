@@ -2,10 +2,11 @@
 import { h, Component } from 'preact';
 import { icons } from '../../assets/svgs';
 import { route } from 'preact-router';
-import { numberWithCommas, convertTime } from '../../assets/utilities';
+import { numberWithCommas, timeSince, capitalizeFirst } from '../../assets/utilities';
 import Header from '../../components/header';
 import Loader from '../../components/loader';
 import Button from '../../components/button';
+import Content from '../../components/content';
 import Comment from '../../components/comment';
 import style from './style';
 
@@ -25,10 +26,12 @@ class Comments extends Component {
 
 	actions = {
 		getComments: async (id) => {
-			const post = await window.snoo.getSubmission(id).expandReplies({ limit: 2, depth: 1 });
+			const post = await window.snoo.getSubmission(id).expandReplies({ limit: 5, depth: 1 });
 			await this.setState({ post, comments: post.comments });
 		},
-		onNavigate: () => route('/', true),
+		onNavigate: () => {
+			route('/', true);
+		},
 		showReplyWindow: () => this.setState({ replyWindow: !this.state.replyWindow }),
 		post: {
 			upVote: (id) => {},//window.snoo.getSubmission(id).upvote(),
@@ -64,31 +67,22 @@ class Comments extends Component {
 				});
 			}
 			if (state.fetchedComments ===  true) {
-				let imageUrl;
-				if (state.post.preview) {
-					if (state.post.preview.images[0].resolutions.length === 0) {
-						imageUrl = ''; //Image URL is broken
-					}
-					else {
-						imageUrl = state.post.preview.images[0].resolutions[state.post.preview.images[0].resolutions.length - 1].url;
-					}
-				}
 				return (
 					<div>
 						<Header
-							left={{ text: state.post.subreddit.display_name , showIcon: true, icon: icons.header.left }}
+							left={{ text: capitalizeFirst(state.post.subreddit.display_name) , showIcon: true, icon: icons.header.left }}
 							title={{ text: `${state.post.num_comments} Comments`, showIcon: false }}
 							right={{ icons: [icons.search.trending, icons.header.settings] }}
 							onLeftClick={this.actions.onNavigate}
 						/>
 						<div class={style.container}>
-							<img src={imageUrl} />
+							<Content src={state.post} />
 							<article>
-								<h4>{state.post.title}</h4>
+								<h4><a href={state.post.url}>{state.post.title}</a></h4>
 								in {state.post.subreddit.display_name} by {state.post.author.name}<br />
 								<span>
 									<Button icon={icons.post.upVote} width="13" height="13" />
-									{state.ups}
+									{state.post.ups}
 								</span>
 								<span>
 									<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
@@ -100,7 +94,7 @@ class Comments extends Component {
 									<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
 										<path d={icons.post.clock} />
 									</svg>&nbsp;&nbsp;
-									{convertTime(state.timeSincePost)}
+									{timeSince(state.timeSincePost)}
 								</span>
 							</article>
 							<footer>

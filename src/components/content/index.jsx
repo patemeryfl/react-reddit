@@ -2,6 +2,9 @@ import { h } from 'preact';
 
 const Content = ({ src }) => {
 	let imageUrl;
+	if (src.distinguished) {
+		return;
+	}
 	if (src.preview) {
 		if (src.preview.reddit_video_preview) {
 			return (
@@ -24,7 +27,6 @@ const Content = ({ src }) => {
 			imageUrl = src.preview.images[0].resolutions[src.preview.images[0].resolutions.length - 1].url;
 			return <img src={imageUrl} width="100%" />;
 		}
-		return <div>{src.selftext}</div>;
 	}
 };
 

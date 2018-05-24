@@ -15,7 +15,7 @@ const Post = ({ data, onPostClick }) => (
 			<Content src={data} />
 		</article>
 		<footer>
-			<span>r/{data.subreddit.display_name}</span><br />
+			<span>r/{data.subreddit.display_name} by {data.author.name}</span><br />
 			<span>
 				<Button icon={icons.post.upVote} width="13" height="13" />
 				{numberWithCommas(data.ups)}
@@ -30,7 +30,7 @@ const Post = ({ data, onPostClick }) => (
 				<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
 					<path d={icons.post.clock} />
 				</svg>&nbsp;&nbsp;
-				{timeSince(new Date(Date.now() - data.created_utc))}
+				{timeSince(Date.now() - data.created)}
 			</span>
 		</footer>
 	</div>

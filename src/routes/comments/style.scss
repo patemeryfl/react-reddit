@@ -10,6 +10,13 @@
         padding:0 10px;
         h4 {
             margin: 5px 0px;
+            a {
+                color: $subtle;
+                text-decoration: none;
+                &:hover { color: $brand; }
+                &:active { color: $white; }
+                &:visited { color: $white; }
+            }
         }
         span {
             display: inline-block;
