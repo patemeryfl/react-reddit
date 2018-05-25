@@ -13,8 +13,8 @@ const Overview = ({ data }) => {
 	return (
 		<div class={style.container}>
 			<header>
-				{data.author.name}
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+				{data.author.name}&nbsp;
+				<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
 					<path d={icons.post.upVote} />
 				</svg>
 				{data.ups} {convertTime(data.created)}

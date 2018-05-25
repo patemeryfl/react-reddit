@@ -71,7 +71,7 @@ class Comments extends Component {
 					<div>
 						<Header
 							left={{ text: capitalizeFirst(state.post.subreddit.display_name) , showIcon: true, icon: icons.header.left }}
-							title={{ text: `${state.post.num_comments} Comments`, showIcon: false }}
+							title={{ text: `${numberWithCommas(state.post.num_comments)} Comments`, showIcon: false }}
 							right={{ icons: [icons.search.trending, icons.header.settings] }}
 							onLeftClick={this.actions.onNavigate}
 						/>
@@ -82,13 +82,13 @@ class Comments extends Component {
 								in {state.post.subreddit.display_name} by {state.post.author.name}<br />
 								<span>
 									<Button icon={icons.post.upVote} width="13" height="13" />
-									{state.post.ups}
+									{numberWithCommas(state.post.ups)}
 								</span>
 								<span>
 									<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
 										<path d={icons.post.comment} />
 									</svg>&nbsp;&nbsp;
-									{state.numComments}
+									{numberWithCommas(state.numComments)}
 								</span>
 								<span>
 									<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">

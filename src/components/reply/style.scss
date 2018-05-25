@@ -1,25 +1,12 @@
 @import '../../style/colors';
 
-.container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.comment {
-    height: 100%;
-    border-top: 1px solid $dark;
-    border-bottom: 1px solid $dark;
-    border-left: 2px solid $brand;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-}
-
-.reply {
-    margin-left: 10px;
-}
+// .container {
+//     height: 100%;
+//     padding: 5px;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: flex-start;
+// }
 
 .buttons {
     display: flex;
@@ -32,8 +19,11 @@
     }
 }
 
-.commentBody {
-    padding: 5px;
+.reply {
+    border-top: 1px solid $dark;
+    border-bottom: 1px solid $dark;
+    border-left: 2px solid $brand;
+    padding: 5px 10px;
     a {
         color: $white;
         &:hover { color:$brand; }

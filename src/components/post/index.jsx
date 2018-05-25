@@ -15,6 +15,11 @@ const Post = ({ data, onPostClick }) => (
 			<Content src={data} />
 		</article>
 		<footer>
+			{data.distinguished ?
+				<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24">
+					<path d={icons.post.announcement} fill="green" />
+				</svg> : ''
+			}
 			<span>r/{data.subreddit.display_name} by {data.author.name}</span><br />
 			<span>
 				<Button icon={icons.post.upVote} width="13" height="13" />

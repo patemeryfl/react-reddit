@@ -2,6 +2,7 @@
 import { h } from 'preact';
 import style from './style.scss';
 import { icons } from '../../assets/svgs';
+import { timeSince } from '../../assets/utilities';
 import Overview from '../../components/overview';
 
 const items = ['Posts', 'Comments', 'Saved', 'Friends', 'Upvoted', 'Downvoted', 'Hidden', 'Trophies'];
@@ -12,7 +13,7 @@ const User = ({ user, overview, getInfo }) => (
 		<div class={style.info}>
 			<span>Comment Karma<br />{user.comment_karma}</span>
 			<span>Post Karma<br />{user.link_karma}</span>
-			<span>Account Age<br />{user.created}</span>
+			<span>Account Created<br />{timeSince(user.created)}</span>
 		</div><br /><br />
 		<div class={style.items}>
 			{items.map(item => {
