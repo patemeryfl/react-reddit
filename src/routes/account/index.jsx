@@ -18,12 +18,6 @@ class Account extends Component {
 		}
 	};
 	actions = {
-		validateUser: (credentials) => {
-
-		},
-		checkForExisting: (credentials) => {
-
-		},
 		handleSignInChange: (e) => {
 			const login = this.state.signIn;
 			login[e.target.id] =  e.target.value;
@@ -41,16 +35,13 @@ class Account extends Component {
 			else {
 				this.setState({ view: 'SIGN_IN' });
 			}
-		},
-		signUp: async () => {},
-		signIn: async () => {},
-		errors: {}
+		}
 	};
 	render() {
 		if (this.state.view === 'SIGN_UP') {
-			return <SignUp {...this.actions} />;
+			return <SignUp actions={this.actions} />;
 		}
-		return <SignIn {...this.actions} />;
+		return <SignIn actions={this.actions} />;
 	}
 }
 

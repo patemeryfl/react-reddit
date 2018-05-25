@@ -1,4 +1,3 @@
-/* eslint react/jsx-no-bind: 0 */
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import { isEmpty } from '../../assets/utilities';
@@ -13,13 +12,13 @@ class PostsContainer extends Component {
 	}
 
 	actions = {
+		getComments: (post) => {
+			window.localStorage.setItem('scrollY', window.scrollY);
+			route(`/comments/${post.id}`, true);
+		},
 		getHot: async () => {
 			const posts = await window.snoo.getHot();
 			await this.setState({ posts });
-		},
-		getComments: (post) => {
-			window.localStorage.setItem('scrollY', window.scrollY);
-			route(`comments/${post.id}`, true);
 		},
 		getUrl: async (url) => {
 			const sub = await window.snoo.getSubreddit(url).getHot();
@@ -30,7 +29,7 @@ class PostsContainer extends Component {
 		}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		let position = window.localStorage.getItem('scrollY');
 		window.scrollTo(0, position);
 		if (this.props.subreddit) {
