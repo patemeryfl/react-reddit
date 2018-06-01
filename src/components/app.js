@@ -76,7 +76,7 @@ export default class App extends Component {
 					<Subscriptions path="/subscriptions" />
 					<Comments path="/comments/:id" />
 					<Inbox path="/inbox" />
-					<Profile path="/profile/" />
+					<Profile path="/profile/:content?" />
 					<Search path="/search" />
 					<Settings path="/settings" />
 				</Router>

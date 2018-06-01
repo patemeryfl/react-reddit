@@ -1,16 +1,15 @@
 @import '../../style/colors.scss';
 
 .clicked {
-    background-color: $brand;
-    border-radius: 2px;
+    pointer-events: none;
     svg {
-        fill: $dark;
+        fill: white;
     }
     cursor: pointer;
 }
 
 .notClicked {
-    background-color: none;
+    pointer-events: all;
     svg {
         fill: $brand;
     }

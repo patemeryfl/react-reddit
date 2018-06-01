@@ -1,12 +1,26 @@
 import { h, Component } from 'preact';
 import style from './style';
+import { icons } from '../../assets/svgs';
 import Header from '../../components/header';
 
 export default class Settings extends Component {
 
-	state = {}
+	state = {
+		setting: 'Main',
+		items: ['General', 'Apperance', 'Theme', 'Accounts', 'About']
+	}
 
-	render({ user }, { time, count }) {
+	actions = {
+
+	}
+
+	render(props, state) {
+		const Icons = { icons };
+		let view = () => {
+			switch (this.state.setting) {
+				case 'Main':
+			}
+		}
 		return (
 			<div>
 				<Header
@@ -15,7 +29,19 @@ export default class Settings extends Component {
 					right={{ icons: [] }}
 				/>
 				<div class={style.settings}>
-					<h1>Settings Works</h1>
+					<div class={style.items}>
+						{state.items.map(item => {
+							let i = Icons.icons.profile[item];
+							return (
+								<button onClick={() => this.actions.getInfo(item)}>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+										<path d={i} />
+									</svg>
+									{item}
+								</button>
+							);
+						})}
+					</div>
 				</div>
 			</div>
 		);

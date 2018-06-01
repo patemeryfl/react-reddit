@@ -98,12 +98,8 @@ class Comments extends Component {
 								</span>
 							</article>
 							<footer>
-								<span onClick={() => this.actions.post.upVote(state.post.id)}>
-									<Button icon={icons.post.upVote} width="24" height="24" />
-								</span>
-								<span onClick={() => this.actions.post.downVote(state.post.id)}>
-									<Button icon={icons.post.downVote} width="24" height="24" />
-								</span>
+								<Button icon={icons.post.upVote} width="24" height="24" onClick={() => this.actions.post.upVote(state.post.id)} />
+								<Button icon={icons.post.downVote} width="24" height="24" onClick={() => this.actions.post.downVote(state.post.id)} />
 								<span onClick={() => this.actions.post.favorite(state.post.id)}>
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 										<path d={icons.post.favorite} />
